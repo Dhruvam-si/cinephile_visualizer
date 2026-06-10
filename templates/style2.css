@@ -1,0 +1,50 @@
+      body{
+            background:#f4f4f4;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        .review-card{
+            max-width:700px;
+            margin:auto;
+            margin-top:60px;
+            background:white;
+            border-radius:25px;
+            padding:35px;
+            box-shadow:0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .note{
+            background:#ffe7fe;
+            border-radius:18px;
+            padding:18px;
+            margin-bottom:18px;
+            border-left:6px solid #f41dde;
+        }
+
+        .label{
+            font-weight:bold;
+            font-size: medium;
+            color:#555;
+            display:block;
+            margin-bottom:5px;
+        }
+
+        .value{
+            font-size:18px;
+        }
+
+        .review-box{
+            min-height:180px;
+            white-space:pre-wrap;
+        }
+
+        .logout-btn{
+            width:100%;
+            border-radius:50px;
+        }
+
+        h2{
+            text-align:center;
+            margin-bottom:35px;
+            font-weight:bold;
+        }

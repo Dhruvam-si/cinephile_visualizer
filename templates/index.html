@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FILM LIKE </title>
+    <link rel = "stylesheet" href="style.css">
+    <link rel="icon" href="img/movicon.jpg">
+    {%for i in range(10)%}
+    <p>test loop</p>
+    {% endfor %}
+</head>
+<body>
+    <header>
+        <img src="img/review.jpg" height="300" width="435" alt="image of movie review and log book" id="header">
+    </header>
+    <nav>
+        <ul>
+            <li id="top">
+                <a href="#lists">Skip Intro</a>
+            </li>
+            <li>
+                <a href="reviews.html">Write your reviews</a>
+            </li>
+            <li><a href="downloads.html">download links</a>
+            </li>
+        </ul>
+    </nav>
+    <article>
+        <h1>About {{content}}</h1>
+        <h3><p>Not at much younger age, but started watching movies and TV shows after 7th grade<br>
+        Loved Money Heist ,my first web series ever</p></h2>
+    </article>
+    <hr>
+    <section id="lists">
+        <dl>
+            <dt style="font-weight: bold; color: whitesmoke;position:relative; left: 240px ;font-weight: 100;">Inception</dt>
+            <img src="img/interstellar.jpg" height="200" width="" id="interstellar">
+            <dd>An Amazing Piece by Christopher nolan, uk what every time I watch a nolan film it feels like a Rebirth and <br>this one is personal due to <abbr title="Dream where uk u are dreaming and have certain level of power over it">Lucid dreamings</abbr> dreamings and dream within dreams!</dd>
+            <a href="https://in.pinterest.com/ideas/interstellar-art/959959607643/">image galleria interstellar</a>
+            <hr>
+            <br>
+            <dt style="font-weight: bold; position: relative;
+            left: 220px; color: rgb(255, 0, 0);">Inglorious <abbr title="why basterds with an e a wrong spell is secret yet unknown and intentional by tarantino">Basterds</abbr></dt>
+            <img src="https://m.media-amazon.com/images/M/MV5BODZhMWJlNjYtNDExNC00MTIzLTllM2ItOGQ2NGVjNDQ3MzkzXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" height="300" width="" id="basterds">
+            <dd>if its not our very famous feet fetish guy quentin tarantino's movie starring brad pitt as Aldo The Apache scalping nazis.Peak fun!</dd>
+            <a href="https://in.pinterest.com/search/pins/?q=inglorious%20basterds&rs=ac&len=10&source_id=ac_SXLFKQHz&eq=unglorious&etslf=3981">image galleria Inglorious Basterds</a>
+        </dl>
+    </section>
+    &lt;&lt;&lt;&copy; Dhruvam Production &gt;&gt;&gt;
+    <p><a href="#top"> here to go on top </a> </p>
+</body>
+</html>

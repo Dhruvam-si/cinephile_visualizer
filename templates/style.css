@@ -1,0 +1,22 @@
+body{
+    font-family: Garamond(serif);
+    font-size:larger;
+    background-color: black;
+    color: bisque;
+}
+#header{
+    position: relative;
+    left: 80px;
+    border-radius:23%;
+}
+#interstellar{
+    position: relative;
+    left: 120px;
+    border-radius: 12%;
+}
+#basterds{
+    position: relative;
+    left: 200px;
+    border-radius: 12%;
+    width: 200px;
+}

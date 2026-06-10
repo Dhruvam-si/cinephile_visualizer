@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Home Page{% endblock %}
+{% block content %}
+ {% with messages = get_flashed_messages() %}
+      {% if messages %}
+             {% for msg in messages %}
+               <p>{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+  {% endwith %}
+<div class="row g-4">
+  <div class="col">
+    <input type="text" class="form-control" placeholder="First name" aria-label="First name">
+  </div>
+  <div class="col">
+    <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
+  </div>
+</div>
+{% endblock %}
+
+

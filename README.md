@@ -1,6 +1,6 @@
 # cinephile_visualizer
 # Film Review Site
-A Flask web app for writing and viewing film reviews.
+A Flask web app for writing and viewing your brain mindmap visualize according to movies watched and reviews wrote.
 
 ## Features
 - User login with sessions

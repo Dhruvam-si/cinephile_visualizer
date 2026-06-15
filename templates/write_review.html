@@ -1,39 +1,148 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>reviews/\write</title>
-    <link rel="icon" href="img/movicon.jpg">
+{% extends "base.html" %}
+
+{% block title %}{{name}} review{% endblock %}
+
+{% block style %}
+<link rel="icon" href="img/movicon.jpg">
 <style>
-    body{
-        background-color: black;
-        color: azure;
+    /* Scope centering & background to a wrapper inside content block rather than global body */
+    .review-page-wrapper {
+        background-color: #f7f9fa;
+        min-height: 85vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 20px;
+    }
+    .card-container {
+        background-color: #ffffff;
+        width: 100%;
+        max-width: 600px;
+        border-radius: 24px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        padding: 35px;
+    }
+    .card-container h1 {
+        text-align: center;
+        font-size: 2rem;
+        color: #1a202c;
+        margin-top: 0;
+        margin-bottom: 30px;
+        font-weight: 600;
+    }
+    .card-container fieldset {
+        border: none;
+        padding: 0;
+        margin: 0 0 20px 0;
+    }
+    .card-container legend {
+        display: none; /* Kept for accessibility, hidden visually */
+    }
+    .input-group-custom {
+        background-color: #fde8ff;
+        border-left: 5px solid #e0119d;
+        border-radius: 16px;
+        padding: 16px 20px;
+        margin-bottom: 20px;
+    }
+    .input-group-custom label {
+        display: block;
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #58508d;
+        margin-bottom: 6px;
+        text-transform: capitalize;
+    }
+    .input-group-custom input[type="text"],
+    .input-group-custom input[type="email"],
+    .input-group-custom textarea {
+        width: 100%;
+        background: transparent;
+        border: none;
+        outline: none;
+        font-size: 1.05rem;
+        color: #2d3748;
+        font-family: inherit;
+        padding: 4px 0;
+        box-shadow: none !important; /* Overrides Bootstrap default focus rings */
+    }
+    .input-group-custom textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+    .input-group-custom ::placeholder {
+        color: #a0aec0;
+        opacity: 1;
+    }
+    .btn-submit-custom {
+        width: 100%;
+        background-color: #dc3545;
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        padding: 14px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        margin-top: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .btn-submit-custom:hover {
+        background-color: #c82333;
+        color: #ffffff;
     }
 </style>
-</head>
-<body>
-    <h1 style="padding-left: 250px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; color: rgb(102, 226, 13);">Review</h1>
-    <form method="post" action="#">
-     <fieldset>
-        <label for="firstname">First name : </label>
-        <input type="text" required autofocus name="firstname" value="{{firstname}}">
-        <br>
-        <br>
-        <label for="lastname">Last name : </label>
-        <input type="text" name="lastname" value="{{lastname}}">
-        <br><br>
-        <label for="lastname">Email : </label>
-        <input type="email"name="mailto" placeholder="not necessary ">
-        <br><br>
-        <label for="movie">movie : </label>
-        <input type="text"  required  name="movie">
-     </fieldset>
-     <fieldset>
-        <legend>Write The Review</legend>
-        <textarea required maxlength="2000" placeholder="This movie was...." name="verdict"></textarea>
-        </fieldset>
-        <button type="submit">POST</button>
-    </form>
-</body>
-</html>
+{% endblock %}
+
+{% block content %}
+<div class="review-page-wrapper">
+    <div class="card-container">
+        <h1>Your Review</h1>
+        
+        {# Retaining Flash Message handling block if passed through child block #}
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for msg in messages %}
+                    <div class="alert alert-info" role="alert">{{ msg }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="post" action="#">
+            <fieldset>
+                <div class="input-group-custom">
+                    <label for="firstname">First name</label>
+                    <input type="text" required autofocus name="firstname" id="firstname" value="{{firstname}}">
+                </div>
+                
+                <div class="input-group-custom">
+                    <label for="lastname">Last name</label>
+                    <input type="text" name="lastname" id="lastname" value="{{lastname}}">
+                </div>
+                
+                <div class="input-group-custom">
+                    <label for="mailto">Email</label>
+                    <input type="email" name="mailto" id="mailto" placeholder="not necessary">
+                </div>
+                
+                <div class="input-group-custom">
+                    <label for="movie">Movie Name</label>
+                    <input type="text" required name="movie" id="movie">
+                </div>
+            </fieldset>
+            
+            <fieldset>
+                <legend>Write The Review</legend>
+                <div class="input-group-custom">
+                    <label for="verdict">Review</label>
+                    <textarea required maxlength="2000" placeholder="This movie was...." name="verdict" id="verdict"></textarea>
+                </div>
+            </fieldset>
+            
+            <button type="submit" class="btn-submit-custom">POST</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

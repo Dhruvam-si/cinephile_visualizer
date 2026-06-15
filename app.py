@@ -1,8 +1,26 @@
 from  flask import Flask,redirect,url_for,render_template,session,request,flash
 from datetime import timedelta
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.secret_key = "diewreview"
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite://users.sqlite3"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+db = SQLAlchemy(app)
+
+class users(db.Model):
+    _id= db.Column("id",db.Integer,primary_key=True)
+    firstname = db.Column("firstname",db.String(30))
+    lastname = db.Column("lastname",db.String(30))
+
+    def __init__(self,firstname,lastname):
+        self.firstname = firstname
+        self.lastname=lastname
+
+
+
+
+
 #time for session storing
 app.permanent_session_lifetime=timedelta(minutes=5)
 
@@ -75,5 +93,7 @@ def logout():
        return redirect(url_for("home"))
 
 if __name__ == '__main__':
+    db.create_all()
     app.run(debug=True)
+
 

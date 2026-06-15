@@ -8,14 +8,108 @@
             {% endfor %}
         {% endif %}
   {% endwith %}
-<div class="row g-4">
-  <div class="col">
-    <input type="text" class="form-control" placeholder="First name" aria-label="First name">
-  </div>
-  <div class="col">
-    <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
-  </div>
+  {% block style%}
+   <style>
+        body{
+            background:#f4f4f4;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        .login-card{
+            max-width:550px;
+            margin:80px auto;
+            background:white;
+            border-radius:25px;
+            padding:40px;
+            box-shadow:0 10px 25px rgba(0,0,0,.15);
+        }
+
+        h2{
+            text-align:center;
+            font-weight:bold;
+            margin-bottom:10px;
+        }
+
+        .subtitle{
+            text-align:center;
+            color:#666;
+            margin-bottom:35px;
+        }
+
+        .note{
+            background:#ffe7fe;
+            border-radius:18px;
+            padding:18px;
+            margin-bottom:22px;
+            border-left:6px solid #f41dde;
+        }
+
+        .label{
+            display:block;
+            font-weight:bold;
+            color:#444;
+            margin-bottom:8px;
+        }
+
+        .form-control{
+            border:none;
+            background:transparent;
+            box-shadow:none !important;
+            padding-left:0;
+            font-size:18px;
+        }
+
+        .form-control::placeholder{
+            color:#888;
+        }
+
+        .btn-login{
+            width:100%;
+            border-radius:50px;
+            font-size:18px;
+            padding:10px;
+        }
+    </style>
+  {% endblock %}
+</head>
+<body>
+
+<div class="login-card">
+
+    <h2>Welcome</h2>
+    <p class="subtitle">Enter your name to continue.</p>
+
+    <form action="/" method="POST">
+
+        <div class="note">
+            <label class="label">First Name</label>
+            <input
+                type="text"
+                class="form-control"
+                name="faname"
+                placeholder="Enter your first name"
+                value="{{faname}}"
+                required>
+        </div>
+
+        <div class="note">
+            <label class="label">Last Name</label>
+            <input
+                type="text"
+                class="form-control"
+                name="laname"
+                value="{{laname}}"
+                required>
+        </div>
+
+        <button type="submit" class="btn btn-danger btn-login">
+          continue
+        </button>
+
+    </form>
+
 </div>
+
 {% endblock %}
 
 

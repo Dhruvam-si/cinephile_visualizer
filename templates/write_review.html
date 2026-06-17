@@ -110,39 +110,34 @@
             {% endif %}
         {% endwith %}
 
-        <form method="post" action="#">
-            <fieldset>
-                <div class="input-group-custom">
-                    <label for="firstname">First name</label>
-                    <input type="text" required autofocus name="firstname" id="firstname" value="{{firstname}}">
-                </div>
-                
-                <div class="input-group-custom">
-                    <label for="lastname">Last name</label>
-                    <input type="text" name="lastname" id="lastname" value="{{lastname}}">
-                </div>
-                
-                <div class="input-group-custom">
-                    <label for="mailto">Email</label>
-                    <input type="email" name="mailto" id="mailto" placeholder="not necessary">
-                </div>
-                
-                <div class="input-group-custom">
-                    <label for="movie">Movie Name</label>
-                    <input type="text" required name="movie" id="movie">
-                </div>
-            </fieldset>
-            
-            <fieldset>
-                <legend>Write The Review</legend>
-                <div class="input-group-custom">
-                    <label for="verdict">Review</label>
-                    <textarea required maxlength="2000" placeholder="This movie was...." name="verdict" id="verdict"></textarea>
-                </div>
-            </fieldset>
-            
-            <button type="submit" class="btn-submit-custom">POST</button>
-        </form>
+        <form method="post" action="{{ url_for('review') }}">
+    <fieldset>
+        <div class="input-group-custom">
+            <label for="movie">Movie Name</label>
+            <input
+                type="text"
+                required
+                name="movie"
+                id="movie"
+                placeholder="say my name..">
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Write The Review</legend>
+        <div class="input-group-custom">
+            <label for="verdict">Review</label>
+            <textarea
+                required
+                maxlength="2000"
+                placeholder="This movie was...."
+                name="verdict"
+                id="verdict"></textarea>
+        </div>
+    </fieldset>
+
+    <button type="submit" class="btn-submit-custom">POST</button>
+</form>
     </div>
 </div>
 {% endblock %}

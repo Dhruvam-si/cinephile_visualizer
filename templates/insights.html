@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+
+{% block title %}insights{% endblock %}
+
+{% block style %}
+<style>
+
+.insight{
+
+    position:relative;
+
+    width:min(850px,90%);
+
+    padding:45px;
+
+    border-radius:28px;
+
+    background:linear-gradient(
+        140deg,
+        rgba(255,255,255,.10),
+        rgba(255,255,255,.03));
+
+    border:1px solid rgba(255,255,255,.18);
+
+    backdrop-filter:blur(16px);
+
+    color:white;
+
+    font-size:1.45rem;
+
+    line-height:1.8;
+
+    text-align:center;
+
+    box-shadow:
+        0 0 30px rgba(255,0,170,.25),
+        0 0 80px rgba(0,220,255,.18);
+
+    animation:
+        pop .8s ease,
+        glow 3s ease-in-out infinite alternate;
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease;
+
+}
+
+/* VHS scan lines */
+
+.insight::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:28px;
+
+    background:
+    repeating-linear-gradient(
+    transparent 0px,
+    transparent 3px,
+    rgba(255,255,255,.035) 4px);
+
+    pointer-events:none;
+    mix-blend-mode:overlay;
+}
+
+/* Neon border */
+
+.insight::after{
+    content:"";
+    position:absolute;
+    inset:-2px;
+    border-radius:30px;
+    background:linear-gradient(
+    120deg,
+    #ff4db8,
+    #00d8ff,
+    #7b61ff,
+    #ff4db8);
+
+    background-size:400%;
+    z-index:-1;
+    filter:blur(12px);
+
+    animation:borderMove 8s linear infinite;
+}
+
+/* VHS text glitch */
+
+.insight:hover{
+
+    transform:
+        translateY(-8px)
+        scale(1.02);
+
+    box-shadow:
+        0 0 55px rgba(255,0,170,.45),
+        0 0 130px rgba(0,255,255,.35);
+
+}
+
+@keyframes pop{
+    from{
+        opacity:0;
+        transform:scale(.9) translateY(50px);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+@keyframes glow{
+    from{
+        box-shadow:
+        0 0 25px rgba(255,0,170,.25),
+        0 0 70px rgba(0,255,255,.15);
+    }
+    to{
+        box-shadow:
+        0 0 45px rgba(255,0,170,.5),
+        0 0 120px rgba(0,255,255,.35);
+    }
+}
+
+@keyframes borderMove{
+    from{background-position:0%;}
+    to{background-position:400%;}
+}
+
+@keyframes float1{
+    from{transform:translate(0,0);}
+    to{transform:translate(90px,60px);}
+}
+
+@keyframes float2{
+    from{transform:translate(0,0);}
+    to{transform:translate(-70px,-60px);}
+}
+
+@keyframes glitch{
+    0%{transform:translate(0);}
+    25%{transform:translate(-1px,1px);}
+    50%{transform:translate(2px,-1px);}
+    75%{transform:translate(-2px,1px);}
+    100%{transform:translate(1px,-2px);}
+}
+
+@media(max-width:700px){
+
+.insight{
+    transition:transform .35s ease, box-shadow .35s ease;
+}
+
+.insight:hover{
+    transform:translateY(-8px) scale(1.02);
+    box-shadow:
+        0 0 50px rgba(255,0,170,.45),
+        0 0 140px rgba(0,255,255,.35);
+}
+
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+<p class="insight">{{ ispot }}</p>
+{% endblock %}

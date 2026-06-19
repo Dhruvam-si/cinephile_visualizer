@@ -1,105 +1,287 @@
 {% extends "base.html" %}
+
 {% block title %}
-Your reviews
+Your Reviews
 {% endblock %}
+
 {% block style %}
 <style>
+
+.reviews-header{
+    text-align:center;
+    margin-bottom:45px;
+}
+
+.reviews-header h1{
+    font-size:3rem;
+    font-weight:800;
+    letter-spacing:1px;
+    color:white;
+}
+
+.reviews-header p{
+    margin-top:10px;
+    color:#cfd7ff;
+    font-size:1.05rem;
+}
+
 .review-grid{
+
+    max-width:1400px;
+
+    margin:0 auto;
+
     display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(290px,1fr));
-    gap:22px;
-    margin:35px 0;
+
+    grid-template-columns:repeat(auto-fill,minmax(330px,1fr));
+
+    gap:28px;
+
 }
 
 .review-card{
-    position:relative;
-    padding:22px;
-    border-radius:20px;
-    backdrop-filter:blur(10px);
-    transition:.35s;
-    overflow:hidden;
-    min-height:170px;
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-}
 
-.review-card::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    border-radius:20px;
-    padding:1px;
-    background:linear-gradient(135deg,rgba(255,255,255,.45),transparent);
-    -webkit-mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-    -webkit-mask-composite:xor;
-            mask-composite:exclude;
+    position:relative;
+
+    border-radius:24px;
+
+    padding:28px;
+
+    min-height:240px;
+
+    overflow:hidden;
+
+    display:flex;
+
+    flex-direction:column;
+
+    transition:.35s;
+
+    backdrop-filter:blur(14px);
+
 }
 
 .review-card:hover{
-    transform:translateY(-7px) rotate(-1deg);
+
+    transform:translateY(-8px) scale(1.02);
+
 }
 
-.review-card h3{
-    margin:0;
-    font-size:1.05rem;
-    font-weight:700;
-    letter-spacing:.5px;
-    color:white;
-}
+.review-card::before{
 
-.review-card p{
-    margin:18px 0 0;
-    color:#edf6ff;
-    line-height:1.6;
-    font-size:.95rem;
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    border-radius:24px;
+
+    padding:1px;
+
+    background:linear-gradient(135deg,
+    rgba(255,255,255,.45),
+    transparent);
+
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+
 }
 
 .review-card::after{
+
     content:"❝";
+
     position:absolute;
-    top:-5px;
+
     right:18px;
-    font-size:70px;
+
+    top:2px;
+
+    font-size:72px;
+
     opacity:.08;
+
+}
+
+.review-card h3{
+
+    font-size:1.35rem;
+
+    font-weight:800;
+
     color:white;
+
+    padding-bottom:16px;
+
+    margin-bottom:18px;
+
+    border-bottom:1px solid rgba(255,255,255,.18);
+
+}
+
+.review-card p{
+
+    color:#edf7ff;
+
+    line-height:1.8;
+
+    font-size:1rem;
+
+    flex:1;
+
 }
 
 /* Magenta */
+
 .variant-0{
-    background:linear-gradient(145deg,#ff53b6,#b93cff);
-    box-shadow:0 0 25px rgba(255,82,180,.35);
+
+    background:linear-gradient(145deg,#ff4ba7,#b93cff);
+
+    box-shadow:0 0 30px rgba(255,82,180,.25);
+
 }
 
 /* Cyan */
+
 .variant-1{
+
     background:linear-gradient(145deg,#00d9ff,#0099ff);
-    box-shadow:0 0 25px rgba(0,210,255,.35);
+
+    box-shadow:0 0 30px rgba(0,210,255,.22);
+
 }
 
 /* Dark Blue */
+
 .variant-2{
-    background:linear-gradient(145deg,#283b7d,#111d4a);
-    box-shadow:0 0 25px rgba(58,92,255,.25);
+
+    background:linear-gradient(145deg,#304d9f,#111d4a);
+
+    box-shadow:0 0 30px rgba(70,110,255,.20);
+
 }
+
+/* Empty page */
+
+.empty-state{
+
+    min-height:65vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+}
+
+.empty-state h1{
+
+    font-size:5rem;
+
+}
+
+.empty-state h2{
+
+    margin-top:15px;
+
+    font-size:2rem;
+
+    font-weight:700;
+
+}
+
+.empty-state p{
+
+    color:#d7d7d7;
+
+    margin-top:10px;
+
+    font-size:1.05rem;
+
+}
+
+.empty-state a{
+
+    margin-top:28px;
+
+    text-decoration:none;
+
+    padding:12px 28px;
+
+    border-radius:999px;
+
+    color:white;
+
+    background:linear-gradient(135deg,#ff3ea5,#00d8ff);
+
+    transition:.3s;
+
+}
+
+.empty-state a:hover{
+
+    transform:translateY(-3px);
+
+    color:white;
+
+    box-shadow:0 0 25px rgba(255,0,170,.35);
+
+}
+
 </style>
 {% endblock %}
+
 {% block content %}
+
+<div class="reviews-header">
+    <h1>🎬 Your Reviews</h1>
+    <p>{{ values|length }} Review{% if values|length != 1 %}s{% endif %}</p>
+</div>
+
+{% if values %}
+
 <div class="review-grid">
 
 {% for review in values %}
 
 <div class="review-card variant-{{ loop.index0 % 3 }}">
+
     <h3>{{ review.user_movie }}</h3>
 
-    <p>
-        {{ review.user_review }}
-    </p>
+    <p>{{ review.user_review }}</p>
+
 </div>
 
 {% endfor %}
 
 </div>
+
+{% else %}
+
+<div class="empty-state">
+
+<h1>🍿</h1>
+
+<h2>No Reviews Yet</h2>
+
+<p>Looks like your movie journal is empty.</p>
+
+<a href="/review">
+Write Your First Review
+</a>
+
+</div>
+
+{% endif %}
+
 {% endblock %}

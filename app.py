@@ -1,10 +1,13 @@
 from flask import Flask, redirect, url_for, render_template, session, request, flash
 from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
-
+from insights import generate_unhinged_insight
+from serper_discourse import get_discourse
 app = Flask(__name__)
 app.secret_key = "diewreview"
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///users.sqlite3"
+import os
+basedir = os.path.abspath(os.path.dirname(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///" + os.path.join(basedir, "users.sqlite3")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
@@ -19,7 +22,7 @@ class users(db.Model):
 
 class reviews(db.Model):
     _id=db.Column("id",db.Integer,primary_key=True)
-    user_id=db.Column("user_id",db.Integer,db.ForeignKey("users._id"))
+    user_id=db.Column("user_id",db.Integer,db.ForeignKey("users.id"))
     user_movie=db.Column("user_movie",db.String(50))
     user_review=db.Column("user_review",db.String(2000))
     
@@ -100,7 +103,14 @@ def user_reviews():
         user_reviews_list=reviews.query.filter_by(user_id=session["user_id"]).all()
         return render_template("user_reviews.html",values=user_reviews_list)
 
+@app.route("/insights")
+def insights():
+    if "user_name" in session:
+      user_review=reviews.query.filter_by(user_id=session["user_id"]).first()
+      keys = get_discourse(user_review.user_movie)
+      ispot = generate_unhinged_insight(user_review.user_movie,user_review.user_review,keys,session["user_name"])
 
+    return render_template("insights.html",ispot=ispot)
 
 
 @app.route("/logout")
@@ -111,7 +121,6 @@ def logout():
         session.pop("user_name", None)
         session.pop("user_email", None)
     return redirect(url_for("home"))
-
 
 if __name__ == '__main__':
     with app.app_context():

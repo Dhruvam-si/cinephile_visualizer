@@ -5,94 +5,216 @@
 {% block style %}
 <link rel="icon" href="img/movicon.jpg">
 <style>
-    /* Scope centering & background to a wrapper inside content block rather than global body */
-    .review-page-wrapper {
-        background-color: #f7f9fa;
-        min-height: 85vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 40px 20px;
+.review-page-wrapper{
+
+    min-height:85vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:40px 20px;
+
+}
+
+.card-container{
+
+    width:100%;
+
+    max-width:650px;
+
+    padding:38px;
+
+    border-radius:28px;
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.14);
+
+    box-shadow:
+        0 0 30px rgba(255,0,170,.15),
+        0 0 70px rgba(0,220,255,.08);
+
+    animation:fadeUp .7s ease;
+
+}
+
+.card-container h1{
+
+    color:white;
+
+    text-align:center;
+
+    font-size:2.3rem;
+
+    font-weight:800;
+
+    margin-bottom:35px;
+
+}
+
+.card-container fieldset{
+
+    border:none;
+
+    margin:0;
+
+    padding:0;
+
+}
+
+.card-container legend{
+
+    display:none;
+
+}
+
+.input-group-custom{
+
+    background:rgba(255,255,255,.06);
+
+    border:1px solid rgba(255,255,255,.10);
+
+    border-radius:18px;
+
+    padding:18px;
+
+    margin-bottom:22px;
+
+    transition:.3s;
+
+}
+
+.input-group-custom:hover{
+
+    background:rgba(255,255,255,.09);
+
+    transform:translateY(-2px);
+
+}
+
+.input-group-custom label{
+
+    display:block;
+
+    color:white;
+
+    font-weight:700;
+
+    margin-bottom:10px;
+
+}
+
+.input-group-custom input,
+
+.input-group-custom textarea{
+
+    width:100%;
+
+    border:none;
+
+    outline:none;
+
+    background:transparent;
+
+    color:white;
+
+    font-size:1.05rem;
+
+    resize:vertical;
+
+    box-shadow:none !important;
+
+}
+
+.input-group-custom textarea{
+
+    min-height:180px;
+
+}
+
+.input-group-custom input::placeholder,
+
+.input-group-custom textarea::placeholder{
+
+    color:#bfbfbf;
+
+}
+
+.btn-submit-custom{
+
+    width:100%;
+
+    margin-top:12px;
+
+    border:none;
+
+    border-radius:999px;
+
+    padding:14px;
+
+    font-size:1.05rem;
+
+    font-weight:700;
+
+    color:white;
+
+    background:linear-gradient(135deg,#ff3ea5,#00d8ff);
+
+    transition:.3s;
+
+}
+
+.btn-submit-custom:hover{
+
+    transform:translateY(-3px);
+
+    color:white;
+
+    box-shadow:
+        0 0 25px rgba(255,0,170,.35),
+        0 0 45px rgba(0,220,255,.20);
+
+}
+
+.alert{
+
+    border:none;
+
+    border-radius:16px;
+
+    background:rgba(255,255,255,.08);
+
+    color:white;
+
+    backdrop-filter:blur(10px);
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(35px);
+
     }
-    .card-container {
-        background-color: #ffffff;
-        width: 100%;
-        max-width: 600px;
-        border-radius: 24px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-        padding: 35px;
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
     }
-    .card-container h1 {
-        text-align: center;
-        font-size: 2rem;
-        color: #1a202c;
-        margin-top: 0;
-        margin-bottom: 30px;
-        font-weight: 600;
-    }
-    .card-container fieldset {
-        border: none;
-        padding: 0;
-        margin: 0 0 20px 0;
-    }
-    .card-container legend {
-        display: none; /* Kept for accessibility, hidden visually */
-    }
-    .input-group-custom {
-        background-color: #fde8ff;
-        border-left: 5px solid #e0119d;
-        border-radius: 16px;
-        padding: 16px 20px;
-        margin-bottom: 20px;
-    }
-    .input-group-custom label {
-        display: block;
-        font-size: 0.85rem;
-        font-weight: 700;
-        color: #58508d;
-        margin-bottom: 6px;
-        text-transform: capitalize;
-    }
-    .input-group-custom input[type="text"],
-    .input-group-custom input[type="email"],
-    .input-group-custom textarea {
-        width: 100%;
-        background: transparent;
-        border: none;
-        outline: none;
-        font-size: 1.05rem;
-        color: #2d3748;
-        font-family: inherit;
-        padding: 4px 0;
-        box-shadow: none !important; /* Overrides Bootstrap default focus rings */
-    }
-    .input-group-custom textarea {
-        resize: vertical;
-        min-height: 120px;
-    }
-    .input-group-custom ::placeholder {
-        color: #a0aec0;
-        opacity: 1;
-    }
-    .btn-submit-custom {
-        width: 100%;
-        background-color: #dc3545;
-        color: #ffffff;
-        border: none;
-        border-radius: 8px;
-        padding: 14px;
-        font-size: 1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-        margin-top: 10px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-    .btn-submit-custom:hover {
-        background-color: #c82333;
-        color: #ffffff;
-    }
+
+}
+
 </style>
 {% endblock %}
 

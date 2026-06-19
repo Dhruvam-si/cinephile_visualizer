@@ -1,28 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {% block style%}
-    {% endblock %}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+          crossorigin="anonymous">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title%}{% endblock %}</title>
+
+    <title>{% block title %}{% endblock %}</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        html{
+            scroll-behavior:smooth;
+        }
+
+        body{
+
+            min-height:100vh;
+
+            font-family:Segoe UI,Arial,sans-serif;
+
+            background:
+            radial-gradient(circle at top,#492070 0%,#181128 40%,#09090f 100%);
+
+            color:white;
+
+            overflow-x:hidden;
+
+        }
+
+        /* Ambient lights */
+
+        body::before,
+        body::after{
+
+            content:"";
+            position:fixed;
+            border-radius:50%;
+            filter:blur(180px);
+            z-index:-1;
+
+        }
+
+        body::before{
+
+            width:420px;
+            height:420px;
+            left:-120px;
+            top:-120px;
+
+            background:#ff2fa5;
+
+            opacity:.16;
+
+        }
+
+        body::after{
+
+            width:380px;
+            height:380px;
+            right:-100px;
+            bottom:-100px;
+
+            background:#00d8ff;
+
+            opacity:.14;
+
+        }
+
+        /* NAVBAR */
+
+        .nav{
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            gap:18px;
+
+            padding:18px;
+
+            position:sticky;
+            top:0;
+
+            z-index:1000;
+
+            backdrop-filter:blur(18px);
+
+            background:rgba(18,18,28,.55);
+
+            border-bottom:1px solid rgba(255,255,255,.08);
+
+        }
+
+        .nav-link{
+
+            color:#dddddd !important;
+
+            font-weight:600;
+
+            border-radius:999px;
+
+            padding:10px 22px;
+
+            transition:.3s;
+
+        }
+
+        .nav-link:hover{
+
+            color:white !important;
+
+            background:rgba(255,255,255,.08);
+
+            transform:translateY(-2px);
+
+            box-shadow:0 0 18px rgba(0,220,255,.18);
+
+        }
+
+        .nav-link.active{
+
+            color:white !important;
+
+            background:linear-gradient(135deg,#ff3ea5,#00d9ff);
+
+            box-shadow:
+            0 0 20px rgba(255,0,170,.35);
+
+        }
+
+        /* Every page content goes here */
+
+        .page-container{
+
+            padding:35px;
+
+        }
+
+        /* Flash messages */
+
+        .flash-message{
+
+            width:fit-content;
+
+            margin:18px auto;
+
+            padding:12px 22px;
+
+            border-radius:14px;
+
+            background:rgba(255,255,255,.08);
+
+            backdrop-filter:blur(12px);
+
+            border:1px solid rgba(255,255,255,.12);
+
+            color:white;
+
+        }
+
+    </style>
+
+    {% block style %}
+    {% endblock %}
+
 </head>
+
 <body>
-    <nav class="nav">
-  <a class="nav-link active" aria-current="page" href="http://127.0.0.1:5000">HOME page</a>
-  <a class="nav-link" href="http://127.0.0.1:5000/review">write a review</a>
-  <a class="nav-link" href="http://127.0.0.1:5000/user_reviews">Your reviews</a>
+
+<nav class="nav">
+      <a class="nav-link {% if active_page == 'home' %}active{% endif %}" href="/">
+        HOME page
+    </a>
+    <a class="nav-link" href="http://127.0.0.1:5000/review">Write a review</a>
+    <a class="nav-link " href="http://127.0.0.1:5000/user_reviews">Your reviews</a>
+    <a class="nav-link " href="http://127.0.0.1:5000/insights">Recaps</a>
 </nav>
-    {% block content %}
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-             {% for msg in messages %}
-               <p>{{msg}}</p>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-    {% endblock %} 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+<div class="page-container">
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for msg in messages %}
+<div class="flash-message">
+    {{ msg }}
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+{% endblock %}
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
 </body>
 </html>

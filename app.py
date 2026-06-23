@@ -112,6 +112,20 @@ def insights():
 
     return render_template("insights.html",ispot=ispot)
 
+@app.route("/delete_reviews", methods=["GET", "POST"])
+def delete_reviews():
+    if request.method == "GET":
+        user_reviews = reviews.query.filter_by(user_id=session["user_id"]).all()
+        return render_template("delete_reviews.html", values=user_reviews)
+    
+    # POST
+    selected_ids = request.form.getlist("review_ids")
+    for id in selected_ids:
+        review = reviews.query.filter_by(_id=id, user_id=session["user_id"]).first()
+        db.session.delete(review)
+    db.session.commit()
+    return redirect(url_for("user_reviews"))
+
 
 @app.route("/logout")
 def logout():

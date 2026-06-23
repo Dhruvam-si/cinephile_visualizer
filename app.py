@@ -105,12 +105,19 @@ def user_reviews():
 
 @app.route("/insights")
 def insights():
-    if "user_name" in session:
-      user_review=reviews.query.filter_by(user_id=session["user_id"]).first()
-      keys = get_discourse(user_review.user_movie)
-      ispot = generate_unhinged_insight(user_review.user_movie,user_review.user_review,keys,session["user_name"])
-
-    return render_template("insights.html",ispot=ispot)
+    if "user_id" not in session:
+        flash("Please login first", "info")
+        return redirect(url_for("home"))
+    
+    user_review = reviews.query.filter_by(user_id=session["user_id"]).first()
+    
+    if not user_review:
+        flash("Write a review first to get your insight!", "info")
+        return redirect(url_for("review"))
+    
+    keys = get_discourse(user_review.user_movie)
+    ispot = generate_unhinged_insight(user_review.user_movie, user_review.user_review, keys, session["user_name"])
+    return render_template("insights.html", ispot=ispot)
 
 @app.route("/delete_reviews", methods=["GET", "POST"])
 def delete_reviews():
